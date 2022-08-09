@@ -8,7 +8,7 @@ import Input from "../components/Input";
 import Image from "next/image";
 import LogoSimples from "../public/images/logo_simples-controle.jpg";
 
-export default () => {
+const CreateRevenda = () => {
   const [inputValue, setInputValue] = useState({
     dominio: "",
     code_zone: "ssd789dsf789789sfd978sdf798sdf",
@@ -143,3 +143,5 @@ export default () => {
     </main>
   );
 };
+
+export default CreateRevenda;

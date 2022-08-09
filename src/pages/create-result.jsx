@@ -2,7 +2,7 @@ import AnimationLoading from "../components/AnimationLoading";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-export default () => {
+const CreateResult = () => {
   const router = useRouter();
   let { slug } = router.query;
 
@@ -59,3 +59,6 @@ export default () => {
     </main>
   );
 };
+
+
+export default CreateResult;
