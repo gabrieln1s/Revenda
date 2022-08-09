@@ -7,10 +7,9 @@ import Input from "../components/Input";
 import Image from "next/image";
 import LogoSimples from "../public/images/logo_simples-controle.jpg";
 
-const keySlug = async () => {
-  const res = await fetch("/api/generate-slug");
-  const key = await res.json();
-  return key.slug;
+const randomSlug = (min = 10000, max = 9999999999) => {
+  const key = Math.floor(Math.random() * (max - min + 1)) + min;
+  return key.toString();
 };
 
 const CreateRevenda = () => {
@@ -19,7 +18,7 @@ const CreateRevenda = () => {
     dominio: "",
     login: "",
     senha: "",
-    slug: Math.floor(Math.random() * 100000),
+    slug: randomSlug(),
     code_zone: "ssd789dsf789789sfd978sdf798sdf",
     callback: "https://revenda.vercel.app/api/create-result",
   });
@@ -58,9 +57,6 @@ const CreateRevenda = () => {
       "Cookie",
       "XSRF-TOKEN=eyJpdiI6IkFpRDg0VzlpaFA3VnN5U0FCS0JqZVE9PSIsInZhbHVlIjoiTk5ieW9yYm5iVW80ZUpkVjdrcWpjdlVSeXhJbnhFQ0p6QjFKMmxpUG8zc2JueTFiZUl4bUZ5c3VCd0g4c2xPK2xmTS8vcW4xZ2VzV2ZHOTFteUFEMHRYZE1kUXhaQUtWM3dSMUEzMkI5b3R1UGRvTkw4ZHY2S3JGTmg3QThRWTAiLCJtYWMiOiI1MmNmNTMyY2M2YzYwMDlkYTViMTlkMTMyNGVjNmUzOGYwMWUyMzUyNjFkN2YwZWI2NWE5NDMxYTlhOGIwYjAxIiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6IncvUEdCcnNLSzdsME5rdnd2RkN1VFE9PSIsInZhbHVlIjoiRExZc283aTZ2QzIxLzV0MUp2K0ZGZmdrQnI3ZHN4dVRsM05qSjJucnlMS3JSWmpweEpzNFZuU21rcGVEclJnT01vQy9paU5SblVva1FlUjR3ZE5UZGN3VFFjN2dUMXJCUXVjaHpzSld3OUpXRXNabTF5L01wdHRBYUg1aVhtSzMiLCJtYWMiOiIyYjg4Y2UzZGU1ZjdlMGE1NmUxOWIxOTUzNjVmZWFjYjU3ZWQ3ZGQ1YzE4ZDk1MDRhY2Q2Zjk1YjMzM2ViMzdhIiwidGFnIjoiIn0%3D"
     );
-
-    const slugRandom = await keySlug();
-    setData({ ...data, slug: slugRandom || data.slug });
 
     try {
       let response = await fetch(url, {
