@@ -15,7 +15,7 @@ const CreateRevenda = () => {
     login: "",
     senha: "",
     slug: "",
-    callback: "/api/create-result",
+    callback: "https://revenda.vercel.app/api/create-result",
   });
   const [confirmSenha, setConfirmSenha] = useState(null);
 
@@ -72,10 +72,10 @@ const CreateRevenda = () => {
     }
   };
 
-  useEffect(() => {
-    const callbackEndpoint = `${window.location.hostname}/api/create-result`;
-    setInputValue({ ...inputValue, callback: callbackEndpoint });
-  }, []);
+  // useEffect(() => {
+  //   const callbackEndpoint = `${window.location.hostname}/api/create-result`;
+  //   setInputValue({ ...inputValue, callback: callbackEndpoint });
+  // }, []);
 
   return (
     <main className="w-3/5 md:w-full p-8 sm:p-4 m-auto">
