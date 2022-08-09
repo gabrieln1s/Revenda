@@ -85,13 +85,13 @@ const CreateRevenda = () => {
         </div>
 
         <div className="flex flex-wrap justify-between">
-          <h1 className="text-2xl font-roboto font-bold">Cadastro</h1>
+          <h1 className="text-2xl font-roboto font-bold">Nova revenda</h1>
           <button
             type="button"
             className="px-9 py-2 font-roboto font-bold bg-simples1 text-white rounded-lg"
             onClick={create}
           >
-            Criar
+            Salvar
           </button>
         </div>
       </header>
