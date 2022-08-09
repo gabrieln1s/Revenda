@@ -81,7 +81,7 @@ const CreateRevenda = () => {
     <main className="w-3/5 md:w-full p-8 sm:p-4 m-auto">
       <header>
         <div className="w-32 m-auto">
-          <Image src={LogoSimples} />
+          <Image src={LogoSimples} alt="Logomarca da simples controle" />
         </div>
 
         <div className="flex flex-wrap justify-between">

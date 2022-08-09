@@ -4,7 +4,7 @@ import Model from "../../models/RevendasCriada";
 const database = new Database();
 database.connect();
 
-export default async function (req, res) {
+const CreateResult = async (req, res) => {
   const { method } = req;
 
   if (method === "POST") {
@@ -26,4 +26,6 @@ export default async function (req, res) {
       res.status(400).json({ message: "Ocorre um erro na requisição!" });
     }
   }
-}
+};
+
+export default CreateResult;
