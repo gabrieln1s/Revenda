@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import Router from "next/router";
 
 //components
-import GroupInputs from "../components/GroupInputs";
-import Input from "../components/Input";
 import Image from "next/image";
 import LogoSimples from "../public/images/logo_simples-controle.jpg";
+import GroupInputs from "../components/GroupInputs";
+import Input from "../components/Input";
+import Alert from "../components/Alert";
 
 const randomSlug = (min = 10000, max = 9999999999) => {
   const key = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -13,7 +14,14 @@ const randomSlug = (min = 10000, max = 9999999999) => {
 };
 
 const CreateRevenda = () => {
+  const [alertMessage, setAlertMessage] = useState(null);
   const [confirmSenha, setConfirmSenha] = useState(null);
+
+  const [logDominio, setLogDominio] = useState("");
+  const [logLogin, setLogLogin] = useState("");
+  const [logSenha, setLogSenha] = useState("");
+  const [logRepiteSenha, setLogRepiteSenha] = useState("");
+
   const [data, setData] = useState({
     dominio: "",
     login: "",
@@ -24,29 +32,36 @@ const CreateRevenda = () => {
   });
 
   const validateInputs = () => {
-    for (const key in data) {
-      if (!data[key]) {
-        alert("Todos os campos precisam ser preencidos.");
-        return false;
-      }
+    let errorCount = 0;
+
+    setLogLogin("");
+    setLogDominio("");
+    setLogSenha("");
+    setLogRepiteSenha("");
+
+    if (data.dominio.length <= 0) {
+      setLogDominio("O domínio não pode ficar vazio.");
+      errorCount++;
     }
     if (data.login.length < 4) {
-      alert("O usuário deve ter pelo menos quatro (4) caracteres.");
-      return false;
+      setLogLogin("O usuário deve ter pelo menos quatro (4) caracteres.");
+      errorCount++;
     }
     if (data.senha.length < 6) {
-      alert("A senha deve ter pelo menos seis (6) caracteres.");
-      return false;
+      setLogSenha("A senha deve ter pelo menos seis (6) caracteres.");
+      errorCount++;
     }
     if (data.senha != confirmSenha) {
-      alert("Repita exatamente a senha que você colocou ao lado.");
-      return false;
+      setLogRepiteSenha("Repita exatamente a senha que você colocou ao lado.");
+      errorCount++;
     }
 
-    return true;
+    return errorCount <= 0 ? true : false;
   };
 
   const create = async () => {
+    setAlertMessage(null);
+
     if (!validateInputs()) return;
 
     const url = "https://api.simplescontrole.com.br/api/v1/resale/create";
@@ -67,11 +82,19 @@ const CreateRevenda = () => {
       });
       response = await response.json();
 
-      if (response.message) alert(response.message);
+      if (response.message) {
+        setAlertMessage({
+          color: "#2db84f",
+          text: response.message,
+        });
+      }
 
       Router.push(`/create-result?slug=${data.slug}`);
     } catch (error) {
-      alert("Erro ao criar a revenda");
+      setAlertMessage({
+        color: "#ff7260",
+        text: "Erro ao criar a revenda",
+      });
     }
   };
 
@@ -81,7 +104,11 @@ const CreateRevenda = () => {
   // }, []);
 
   return (
-    <main className="w-3/5 md:w-full p-8 sm:p-4 m-auto">
+    <main className="w-3/5 md:w-full p-6 sm:p-4 m-auto relative">
+      {alertMessage && (
+        <Alert color={alertMessage.color} text={alertMessage.text} />
+      )}
+
       <header>
         <div className="w-32 m-auto">
           <Image src={LogoSimples} alt="Logomarca da simples controle" />
@@ -105,24 +132,28 @@ const CreateRevenda = () => {
             type="text"
             label="Domínio"
             getValue={(value) => setData({ ...data, dominio: value })}
+            error={logDominio}
           />
 
           <Input
             type="text"
             label="Usuário"
             getValue={(value) => setData({ ...data, login: value })}
+            error={logLogin}
           />
 
           <Input
             type="password"
             label="Senha"
             getValue={(value) => setData({ ...data, senha: value })}
+            error={logSenha}
           />
 
           <Input
             type="password"
             label="Repita a senha"
             getValue={(value) => setConfirmSenha(value)}
+            error={logRepiteSenha}
           />
         </GroupInputs>
       </div>

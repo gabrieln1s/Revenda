@@ -5,6 +5,11 @@ const Input = (props) => (
         {props.label}
       </label>
     )}
+    {props.error && (
+      <span className="text-[0.75rem] text-red-500 font-roboto font-bold block">
+        {props.error}
+      </span>
+    )}
     <input
       type={props.type || "text"}
       className="h-8 px-1 border border-gray-800 rounded-md w-full outline-none text-sm"
