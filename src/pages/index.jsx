@@ -34,7 +34,7 @@ const CreateRevenda = () => {
       alert("A senha deve ter pelo menos seis (6) caracteres.");
       return false;
     }
-    if (inputValue.senha.length != confirmSenha) {
+    if (inputValue.senha != confirmSenha) {
       alert("Repita exatamente a senha que você colocou ao lado.");
       return false;
     }
