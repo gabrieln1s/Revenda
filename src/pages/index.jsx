@@ -11,10 +11,10 @@ import LogoSimples from "../public/images/logo_simples-controle.jpg";
 const CreateRevenda = () => {
   const [inputValue, setInputValue] = useState({
     dominio: "",
-    code_zone: "ssd789dsf789789sfd978sdf798sdf",
     login: "",
     senha: "",
     slug: "",
+    code_zone: "ssd789dsf789789sfd978sdf798sdf",
     callback: "https://revenda.vercel.app/api/create-result",
   });
   const [confirmSenha, setConfirmSenha] = useState(null);
@@ -26,16 +26,16 @@ const CreateRevenda = () => {
         return false;
       }
     }
-    if (inputValue.login < 4) {
+    if (inputValue.login.length < 4) {
       alert("O usuário deve ter pelo menos quatro (4) caracteres.");
       return false;
     }
-    if (inputValue.senha < 6) {
-      alert("A senha deve ter pelo menos oito (8) caracteres.");
+    if (inputValue.senha.length < 6) {
+      alert("A senha deve ter pelo menos seis (6) caracteres.");
       return false;
     }
-    if (inputValue.senha != confirmSenha) {
-      alert("Repita exatamente a senha que você colocou acima.");
+    if (inputValue.senha.length != confirmSenha) {
+      alert("Repita exatamente a senha que você colocou ao lado.");
       return false;
     }
 
@@ -107,13 +107,6 @@ const CreateRevenda = () => {
           />
           <Input
             type="text"
-            label="Code zone"
-            getValue={(value) =>
-              setInputValue({ ...inputValue, code_zone: value })
-            }
-          />
-          <Input
-            type="text"
             label="Usuário"
             getValue={(value) => setInputValue({ ...inputValue, login: value })}
           />
@@ -132,7 +125,7 @@ const CreateRevenda = () => {
           />
         </GroupInputs>
 
-        <GroupInputs cols="0.3fr 1fr">
+        <GroupInputs>
           <Input
             type="text"
             label="slug"
