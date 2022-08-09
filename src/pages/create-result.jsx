@@ -1,5 +1,5 @@
 import AnimationLoading from "../components/AnimationLoading";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 const CreateResult = () => {
