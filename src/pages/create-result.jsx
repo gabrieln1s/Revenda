@@ -6,12 +6,13 @@ const CreateResult = () => {
   const router = useRouter();
   let { slug } = router.query;
 
-  const [statusRevenda, setStatusRevenda] = useState("creating");
+  const [statusRevenda, setStatusRevenda] = useState("pending");
 
   const queryResult = async () => {
     try {
       let response = await fetch(`api/create-result?slug=${slug}`);
       response = await response.json();
+      
       if (response.falhou) return setStatusRevenda("error");
       
       setStatusRevenda("success");
@@ -35,7 +36,7 @@ const CreateResult = () => {
   return (
     <main className="w-3/5 md:w-full h-screen p-8 sm:p-4 m-auto text-center">
       <div className="m-auto">
-        {statusRevenda === "creating" && (
+        {statusRevenda === "pending" && (
           <>
             <AnimationLoading />
             <h2 className="font-roboto font-bold text-[1.3rem]">
