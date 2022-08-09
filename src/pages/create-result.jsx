@@ -13,10 +13,10 @@ const CreateResult = () => {
       let response = await fetch(`api/create-result?slug=${slug}`);
       response = await response.json();
       if (response.falhou) return setStatusRevenda("error");
-
-      return setStatusRevenda("sucess");
+      
+      setStatusRevenda("success");
     } catch (error) {
-      // alert("Ocorreu um erro interno!");
+      alert("Ocoreu um erro, tente novamente mais tarde!");
     }
   };
 
@@ -39,7 +39,7 @@ const CreateResult = () => {
           <>
             <AnimationLoading />
             <h2 className="font-roboto font-bold text-[1.3rem]">
-              Aguarde, a Revenda está sendo criada!
+              Aguarde, a revenda está sendo criada!
             </h2>
           </>
         )}
@@ -59,6 +59,5 @@ const CreateResult = () => {
     </main>
   );
 };
-
 
 export default CreateResult;
